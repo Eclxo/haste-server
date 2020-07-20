@@ -164,3 +164,7 @@
 .hljs-link {
   text-decoration: underline;
 }
+
+.line.highlight {
+  background-color: #004A5E;
+} 
