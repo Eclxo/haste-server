@@ -266,7 +266,7 @@ haste.prototype.configureButtons = function() {
       label: 'Sauvegarder',
       shortcutDescription: 'control + s',
       shortcut: function(evt) {
-        return evt.ctrlKey && (evt.keyCode === 83);
+        return (evt.ctrlKey || evt.metaKey) && evt.keyCode === 83;
       },
       action: function() {
         if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
@@ -278,7 +278,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .new'),
       label: 'Nouveau',
       shortcut: function(evt) {
-        return evt.ctrlKey && evt.keyCode === 78;
+        return (evt.ctrlKey || evt.metaKey) && evt.keyCode === 78;
       },
       shortcutDescription: 'control + n',
       action: function() {
@@ -289,7 +289,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .duplicate'),
       label: 'Dupliquer & Éditer',
       shortcut: function(evt) {
-        return _this.doc.locked && evt.ctrlKey && evt.keyCode === 68;
+        return _this.doc.locked && (evt.ctrlKey || evt.metaKey) && evt.keyCode === 68;
       },
       shortcutDescription: 'control + d',
       action: function() {
@@ -300,7 +300,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .raw'),
       label: 'Juste le texte',
       shortcut: function(evt) {
-        return evt.ctrlKey && evt.shiftKey && evt.keyCode === 82;
+        return (evt.ctrlKey || evt.metaKey) && evt.shiftKey && evt.keyCode === 82;
       },
       shortcutDescription: 'control + shift + r',
       action: function() {
@@ -311,7 +311,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .twitter'),
       label: 'Twitter',
       shortcut: function(evt) {
-        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
+        return _this.options.twitter && _this.doc.locked && evt.shiftKey && (evt.ctrlKey || evt.metaKey) && evt.keyCode == 84;
       },
       shortcutDescription: 'control + shift + t',
       action: function() {
