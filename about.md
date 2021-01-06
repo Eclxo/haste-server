@@ -9,7 +9,7 @@ Haste is the prettiest, easiest to use pastebin ever made.
 ## Basic Usage
 
 Type what you want me to see, click "Save", and then copy the URL.  Send that
-URL to someone and they'll see what you see.
+URL to someone, and they'll see what you see.
 
 To make a new entry, click "New" (or type 'control + n')
 
@@ -52,8 +52,8 @@ pastes.
 
 Haste can easily be installed behind your network, and it's all open source!
 
-* [haste-client](https://github.com/seejohnrun/haste-client)
-* [haste-server](https://github.com/seejohnrun/haste-server)
+* [haste-client](https://github.com/Eclxo/haste-client)
+* [haste-server](https://github.com/Eclxo/haste-server)
 
 ## Author
 

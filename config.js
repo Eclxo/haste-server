@@ -1,4 +1,5 @@
-{
+const {format} = require("winston");
+const config = {
 
   "host": "0.0.0.0",
   "port": 7777,
@@ -15,7 +16,12 @@
     {
       "level": "verbose",
       "type": "Console",
-      "colorize": true
+      "format": format.combine(
+        format.errors({stack: true}),
+        format.splat(),
+        format.colorize(),
+        format.simple()
+      )
     }
   ],
 
@@ -33,10 +39,7 @@
   },
 
   "storage": {
-    "type": "memcached",
-    "host": "127.0.0.1",
-    "port": 11211,
-    "expire": 2592000
+    "type": "file"
   },
 
   "documents": {
@@ -44,3 +47,5 @@
   }
 
 }
+
+module.exports = config

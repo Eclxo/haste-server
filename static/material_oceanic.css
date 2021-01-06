@@ -1,0 +1,157 @@
+/* Material Oceanic Theme */
+/* https://github.com/ZeProf2Coding */
+/* Original theme - https://github.com/ChrisRM/material-theme-jetbrains/blob/master/src/main/resources/colors/Material%20Oceanic.xml */
+
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('JetBrainsMono[wght].ttf') format('woff2 supports variations'),
+  url('JetBrainsMono[wght].ttf') format('woff2-variations');
+  font-weight: 100 800;
+}
+
+@font-face {
+  font-family: 'JetBrainsMono-Italic';
+  src: url('JetBrainsMono-Italic[wght].ttf') format('woff2 supports variations'),
+  url('JetBrainsMono-Italic[wght].ttf') format('woff2-variations');
+  font-weight: 100 800;
+}
+
+::selection, ::-moz-selection {
+  background-color: #314549;
+}
+
+code, #linenos {
+  font-family: JetBrainsMono, monospace !important;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+  color: #CDD3D8;
+  font-size: 1em;
+}
+
+.hljs-selector-pseudo {
+  color: #c792ea;
+}
+
+.hljs-comment {
+  color: #656565;
+  font-family: JetBrainsMono-Italic, monospace !important;
+}
+
+.hljs-selector-tag {
+  color: #f07178;
+}
+
+.hljs-string,
+.hljs-subst {
+  color: #C3E88D;
+}
+
+.hljs-number,
+.hljs-regexp,
+.hljs-variable,
+.hljs-template-variable {
+  color: #F77669;
+}
+
+.hljs-regexp {
+  color: #c3e88d;
+}
+
+.hljs-keyword {
+  color: #C792EA;
+  font-family: JetBrainsMono-Italic, monospace !important;
+}
+
+.hljs-function > .hljs-title {
+  color: #75A5FF;
+}
+
+.hljs-tag {
+  color: #abb2bf;
+}
+
+.hljs-name {
+  color: #e06c75;
+}
+
+.hljs-type {
+  color: #da4939;
+}
+
+.hljs-attribute {
+  color: #b2ccd6;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-link {
+  color: #C792EA;
+}
+
+.hljs-built_in {
+  color: #82aaff;
+}
+
+.hljs-params {
+  color: #F78C6C;
+}
+
+.hljs-meta {
+  color: #75A5FF;
+}
+
+.hljs-title {
+  color: #75A5FF;
+}
+
+.hljs-section {
+  color: #ffc66d;
+}
+
+.hljs-addition {
+  background-color: #144212;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
+}
+
+.hljs-deletion {
+  background-color: #600;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
+}
+
+.hljs-selector-class {
+  color: #FFCB68;
+}
+
+.hljs-selector-id {
+  color: #C792EA;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}
+
+.hljs-literal {
+  color: #F78C6C;
+}
+
+.line.highlight {
+  background-color: #004A5E;
+}

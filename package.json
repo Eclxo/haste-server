@@ -8,32 +8,30 @@
     "pastebin"
   ],
   "author": {
-    "name": "John Crepezzi & Arnaud Lier",
+    "name": "Arnaud Lier",
     "email": "zeprofdecoding@gmail.com",
-    "url": "https://zeprof2coding.me"
+    "url": "http://zeprof2coding.me"
   },
   "main": "haste",
   "dependencies": {
-    "busboy": "0.2.4",
-    "connect": "3.4.1",
-    "connect-ratelimit": "0.0.7",
-    "connect-route": "0.1.5",
-    "memcached": "^2.2.2",
-    "pg": "4.1.1",
-    "redis": "^0.8.6",
-    "redis-url": "0.1.0",
-    "st": "1.1.0",
-    "uglify-js": "3.1.6",
-    "winston": "0.6.2"
+    "busboy": "^0.3.1",
+    "connect": "^3.7.0",
+    "connect-ratelimit": "^0.0.7",
+    "connect-route": "^0.1.5",
+    "pg": "^8.5.1",
+    "redis": "^3.0.2",
+    "redis-url": "^1.2.1",
+    "st": "^2.0.0",
+    "uglify-js": "^3.12.4",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "mocha": "^8.2.1"
   },
   "bundledDependencies": [],
-  "engines": {
-    "node": "8.1.4",
-    "npm": "5.2.0"
-  },
   "bin": {
     "haste-server": "./server.js"
   },

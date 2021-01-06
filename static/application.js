@@ -2,7 +2,7 @@
 
 ///// represents a single document
 
-var haste_document = function() {
+const haste_document = function () {
   this.locked = false;
 };
 
@@ -17,16 +17,16 @@ haste_document.prototype.htmlEscape = function(s) {
 
 // Get this document from the server and lock it here
 haste_document.prototype.load = function(key, callback, lang) {
-  var _this = this;
+  const _this = this;
   $.ajax('/documents/' + key, {
     type: 'get',
     dataType: 'json',
     success: function(res) {
+      let high;
       _this.locked = true;
       _this.key = key;
       _this.data = res.data;
       try {
-        var high;
         if (lang === 'txt') {
           high = { value: _this.htmlEscape(res.data) };
         }
@@ -59,16 +59,16 @@ haste_document.prototype.save = function(data, callback) {
     return false;
   }
   this.data = data;
-  var _this = this;
+  const _this = this;
   $.ajax('/documents', {
     type: 'post',
     data: data,
     dataType: 'json',
-    contentType: 'application/json; charset=utf-8',
+    contentType: 'text/plain; charset=utf-8',
     success: function(res) {
       _this.locked = true;
       _this.key = res.key;
-      var high = hljs.highlightAuto(data);
+      const high = hljs.highlightAuto(data);
       callback(null, {
         value: high.value,
         key: res.key,
@@ -89,7 +89,7 @@ haste_document.prototype.save = function(data, callback) {
 
 ///// represents the paste application
 
-var haste = function(appName, options) {
+const haste = function (appName, options) {
   this.appName = appName;
   this.$textarea = $('textarea');
   this.$box = $('#box');
@@ -107,13 +107,12 @@ var haste = function(appName, options) {
 
 // Set the page title - include the appName
 haste.prototype.setTitle = function(ext) {
-  var title = ext ? this.appName + ' - ' + ext : this.appName;
-  document.title = title;
+  document.title = ext ? this.appName + ' - ' + ext : this.appName;
 };
 
 // Show a message box
 haste.prototype.showMessage = function(msg, cls) {
-  var msgBox = $('<li class="'+(cls || 'info')+'">'+msg+'</li>');
+  const msgBox = $('<li class="' + (cls || 'info') + '">' + msg + '</li>');
   $('#messages').prepend(msgBox);
   setTimeout(function() {
     msgBox.slideUp('fast', function() { $(this).remove(); });
@@ -132,7 +131,7 @@ haste.prototype.fullKey = function() {
 
 // Set the key up for certain things to be enabled
 haste.prototype.configureKey = function(enable) {
-  var $this, i = 0;
+  let $this, i = 0;
   $('#box2 .function').each(function() {
     $this = $(this);
     for (i = 0; i < enable.length; i++) {
@@ -171,14 +170,13 @@ haste.extensionMap = {
   lua: 'lua', pas: 'delphi', java: 'java', cpp: 'cpp', cc: 'cpp', m: 'objectivec',
   vala: 'vala', sql: 'sql', sm: 'smalltalk', lisp: 'lisp', ini: 'ini',
   diff: 'diff', bash: 'bash', sh: 'bash', tex: 'tex', erl: 'erlang', hs: 'haskell',
-  md: 'markdown', txt: '', coffee: 'coffee', json: 'javascript',
-  swift: 'swift'
+  md: 'markdown', txt: '', coffee: 'coffee', swift: 'swift'
 };
 
 // Look up the extension preferred for a type
 // If not found, return the type itself - which we'll place as the extension
 haste.prototype.lookupExtensionByType = function(type) {
-  for (var key in haste.extensionMap) {
+  for (const key in haste.extensionMap) {
     if (haste.extensionMap[key] === type) return key;
   }
   return type;
@@ -192,34 +190,35 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 
 // Focus on a specific line
 haste.prototype.goToLine = function(lineNum) {
-  // If no line number is explicitly specified, grab it off the hash
-  lineNum = lineNum || parseInt(window.location.hash.substring(2));
+  // If no line number is explicitly specified, grab it off the hash.
+  lineNum = lineNum || parseInt(window.location.hash.substr(2));
   // If there was a line before, remove the highlight from it
   if (typeof this.line != 'undefined') {
     this.line.removeClass("highlight");
-    $(".line[rel='L"+ lineNum +"']").removeClass("highlight");
+    $(".line[rel='L" + lineNum +"']").removeClass("highlight");
   }
   // Scroll to the line and add a highlight to it
-  this.line = $("#linenos span[rel='#L"+ lineNum +"'], .line[rel='L"+ lineNum +"']").addClass("highlight");
+  this.line = $("#linenos span[rel='#L" + lineNum +"'], .line[rel='L"+ lineNum +"']").addClass("highlight");
   window.scrollTo(0, this.line.offset().top);
-};
+}
 
 // Add line numbers to the document
 // For the specified number of lines
 haste.prototype.addLineNumbers = function(lineCount) {
-  var h = '';
-  for (var i = 0; i < lineCount; i++) {
+  let h = '';
+  let num;
+  for (let i = 0; i < lineCount; i++) {
     num = (i + 1).toString();
     h += '<span rel="#L' + num + '">' + num + '</span><br/>';
   }
 
-  var _this = this;
-  listener = function(event) {
+  const _this = this;
+  let listener = function (event) {
     event.preventDefault();
     _this.ignoreLast = true;
     window.location.hash = $(this).attr('rel');
-    _this.goToLine($(this).attr('rel').substring(2));
-  };
+    _this.goToLine($(this).attr('rel').substr(2));
+  }
 
   $('#linenos').html(h);
   $('#linenos span').click(listener);
@@ -232,20 +231,19 @@ haste.prototype.removeLineNumbers = function() {
 
 // Injects code with line spans in to the code box
 haste.prototype.setCode = function(code) {
-  var lines = new Array();
+  const lines = [];
   $.each(code.split("\n"), function (index, value) {
-    var index = index + 1; // Because line numbers aren't 0 based :)
-    lines[index] = "<span class='line' rel='L" + index + "'>" + value + "</span>\n";
+    lines[index] = "<span class='line' rel='L" + index + 1 + "'>" + value + "</span>\n";
   });
-  this.$code.html(lines.join(""));
+  this.$code.html(lines.join(''))
 }
 
 // Load a document and show it
 haste.prototype.loadDocument = function(key) {
   // Split the key up
-  var parts = key.split('.', 2);
+  const parts = key.split('.', 2);
   // Ask for what we want
-  var _this = this;
+  const _this = this;
   _this.doc = new haste_document();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
@@ -255,7 +253,7 @@ haste.prototype.loadDocument = function(key) {
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
       _this.addLineNumbers(ret.lineCount);
-      if (typeof window.location.hash != 'undefined' && window.location.hash != "") {
+      if (typeof window.location.hash != 'undefined' && window.location.hash !== "") {
         _this.goToLine();
       }
     }
@@ -268,7 +266,7 @@ haste.prototype.loadDocument = function(key) {
 // Duplicate the current document - only if locked
 haste.prototype.duplicateDocument = function() {
   if (this.doc.locked) {
-    var currentData = this.doc.data;
+    const currentData = this.doc.data;
     this.newDocument();
     this.$textarea.val(currentData);
   }
@@ -276,7 +274,7 @@ haste.prototype.duplicateDocument = function() {
 
 // Lock the current document
 haste.prototype.lockDocument = function() {
-  var _this = this;
+  const _this = this;
   this.doc.save(this.$textarea.val(), function(err, ret) {
     if (err) {
       _this.showMessage(err.message, 'error');
@@ -284,7 +282,7 @@ haste.prototype.lockDocument = function() {
     else if (ret) {
       _this.setCode(ret.value);
       _this.setTitle(ret.key);
-      var file = '/' + ret.key;
+      let file = '/' + ret.key;
       if (ret.language) {
         file += '.' + _this.lookupExtensionByType(ret.language);
       }
@@ -298,14 +296,14 @@ haste.prototype.lockDocument = function() {
 };
 
 haste.prototype.configureButtons = function() {
-  var _this = this;
+  const _this = this;
   this.buttons = [
     {
       $where: $('#box2 .save'),
-      label: 'Sauvegarder',
+      label: 'Save',
       shortcutDescription: 'control + s',
       shortcut: function(evt) {
-        return (evt.ctrlKey || evt.metaKey) && evt.keyCode === 83;
+        return evt.ctrlKey && (evt.keyCode === 83);
       },
       action: function() {
         if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
@@ -315,9 +313,9 @@ haste.prototype.configureButtons = function() {
     },
     {
       $where: $('#box2 .new'),
-      label: 'Nouveau',
+      label: 'New',
       shortcut: function(evt) {
-        return (evt.ctrlKey || evt.metaKey) && evt.keyCode === 78;
+        return evt.ctrlKey && evt.keyCode === 78;
       },
       shortcutDescription: 'control + n',
       action: function() {
@@ -326,9 +324,9 @@ haste.prototype.configureButtons = function() {
     },
     {
       $where: $('#box2 .duplicate'),
-      label: 'Dupliquer & Éditer',
+      label: 'Duplicate & Edit',
       shortcut: function(evt) {
-        return _this.doc.locked && (evt.ctrlKey || evt.metaKey) && evt.keyCode === 68;
+        return _this.doc.locked && evt.ctrlKey && evt.keyCode === 68;
       },
       shortcutDescription: 'control + d',
       action: function() {
@@ -337,9 +335,9 @@ haste.prototype.configureButtons = function() {
     },
     {
       $where: $('#box2 .raw'),
-      label: 'Juste le texte',
+      label: 'Just Text',
       shortcut: function(evt) {
-        return (evt.ctrlKey || evt.metaKey) && evt.shiftKey && evt.keyCode === 82;
+        return evt.ctrlKey && evt.shiftKey && evt.keyCode === 82;
       },
       shortcutDescription: 'control + shift + r',
       action: function() {
@@ -350,7 +348,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .twitter'),
       label: 'Twitter',
       shortcut: function(evt) {
-        return _this.options.twitter && _this.doc.locked && evt.shiftKey && (evt.ctrlKey || evt.metaKey) && evt.keyCode == 84;
+        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
       },
       shortcutDescription: 'control + shift + t',
       action: function() {
@@ -358,7 +356,7 @@ haste.prototype.configureButtons = function() {
       }
     }
   ];
-  for (var i = 0; i < this.buttons.length; i++) {
+  for (let i = 0; i < this.buttons.length; i++) {
     this.configureButton(this.buttons[i]);
   }
 };
@@ -387,10 +385,10 @@ haste.prototype.configureButton = function(options) {
 
 // Configure keyboard shortcuts for the textarea
 haste.prototype.configureShortcuts = function() {
-  var _this = this;
+  const _this = this;
   $(document.body).keydown(function(evt) {
-    var button;
-    for (var i = 0 ; i < _this.buttons.length; i++) {
+    let button;
+    for (let i = 0 ; i < _this.buttons.length; i++) {
       button = _this.buttons[i];
       if (button.shortcut && button.shortcut(evt)) {
         evt.preventDefault();
@@ -407,20 +405,20 @@ $(function() {
   $('textarea').keydown(function(evt) {
     if (evt.keyCode === 9) {
       evt.preventDefault();
-      var myValue = '  ';
+      const myValue = '  ';
       // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery
       // For browsers like Internet Explorer
       if (document.selection) {
         this.focus();
-        var sel = document.selection.createRange();
+        const sel = document.selection.createRange();
         sel.text = myValue;
         this.focus();
       }
       // Mozilla and Webkit
-      else if (this.selectionStart || this.selectionStart == '0') {
-        var startPos = this.selectionStart;
-        var endPos = this.selectionEnd;
-        var scrollTop = this.scrollTop;
+      else if (this.selectionStart || this.selectionStart === '0') {
+        const startPos = this.selectionStart;
+        const endPos = this.selectionEnd;
+        const scrollTop = this.scrollTop;
         this.value = this.value.substring(0, startPos) + myValue +
           this.value.substring(endPos,this.value.length);
         this.focus();
