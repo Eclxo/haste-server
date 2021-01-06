@@ -1,51 +1,52 @@
-const {format} = require("winston");
+const { format } = require('winston');
+
 const config = {
 
-  "host": "0.0.0.0",
-  "port": 7777,
+  host: '0.0.0.0',
+  port: 7777,
 
-  "keyLength": 10,
+  keyLength: 10,
 
-  "maxLength": 400000,
+  maxLength: 400000,
 
-  "staticMaxAge": 86400,
+  staticMaxAge: 86400,
 
-  "recompressStaticAssets": true,
+  recompressStaticAssets: true,
 
-  "logging": [
+  logging: [
     {
-      "level": "verbose",
-      "type": "Console",
-      "format": format.combine(
-        format.errors({stack: true}),
+      level: 'verbose',
+      type: 'Console',
+      format: format.combine(
+        format.errors({ stack: true }),
         format.splat(),
         format.colorize(),
-        format.simple()
-      )
-    }
+        format.simple(),
+      ),
+    },
   ],
 
-  "keyGenerator": {
-    "type": "phonetic"
+  keyGenerator: {
+    type: 'phonetic',
   },
 
-  "rateLimits": {
-    "categories": {
-      "normal": {
-        "totalRequests": 500,
-        "every": 60000
-      }
-    }
+  rateLimits: {
+    categories: {
+      normal: {
+        totalRequests: 500,
+        every: 60000,
+      },
+    },
   },
 
-  "storage": {
-    "type": "file"
+  storage: {
+    type: 'file',
   },
 
-  "documents": {
-    "about": "./about.md"
-  }
+  documents: {
+    about: './about.md',
+  },
 
-}
+};
 
-module.exports = config
+module.exports = config;

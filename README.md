@@ -1,14 +1,16 @@
 # Haste
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 [![Run on Repl.it](https://repl.it/badge/github/Eclxo/haste-server)](https://repl.it/github/Eclxo/haste-server)
+
 Haste is an open-source pastebin software written in node.js, which is easily
 installable in any network.  It can be backed by either redis or filesystem,
-and has a very easy adapter interface for other stores.  A publicly available
+and has a very easy adapter interface for other stores. A publicly available
 version can be found at [hastebin.com](http://hastebin.com)
 
 Major design objectives:
 
-* Be really pretty
+* Be gorgeous
 * Be really simple
 * Be easy to set up and use
 
@@ -157,7 +159,7 @@ All of which are optional except `type` with very logical default values.
 
 ### MongoDB
 
-To use mongodb storage you must install the 'mongodb' pachage in npm
+To use mongodb storage you must install the 'mongodb' package in npm
 
 `npm install mongodb`
 
